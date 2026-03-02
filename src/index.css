@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Reddit+Sans:ital,wght@0,200..900;1,200..900&display=swap');
+@import "tailwindcss";
+
+html, body{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overscroll-behavior: none;
+  line-height: inherit;
+}
+
+@font-face {
+  font-family: "Base Neue";
+  src: url("/src/assets/fonts/BaseNeueTrial-SuperCnSmBdObl.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@theme{
+
+  /* FONTS */
+  --font-reddit-sans: 'Reddit Sans', sans-serif;
+  --font-gabarito: 'Gabarito', serif;
+  --font-base-neue: 'Base Neue', sans-serif;
+
+  /* COLORS */
+  --color-primary : #151515;
+  --color-text-light : #F0F0F0;
+  --color-nav-bg: #212121;
+
+  --animate-scalein: scaleIn 3s ease-out;
+}
+
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
