@@ -1,29 +1,96 @@
 import { BriefcaseBusiness, Code, UserRoundSearch, ExternalLink, MonitorSmartphone } from "lucide-react"
+import { useEffect, useState } from "react"
 
 function App() {
-  return (
+  const SECTIONS = [
+    {
+      href : "/#experience",
+      name : "Experiencia",
+      id : "experience"
+    },
+    {
+      href : "/#proyects",
+      name : "Proyectos",
+      id : "proyects"
+    },
+    {
+      href : "/#aboutme",
+      name : "Sobre mi",
+      id : "aboutme"
+    },
+    {
+      href : "",
+      name : "Contacto",
+      id : "contact"
+    }
+  ]
+
+    const [activeSection, setActiveSection] = useState('experience');
+
+    useEffect(() => {
+      const sectionElements = SECTIONS.map((section) => document.getElementById(section.id));
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            console.log("entry target id: ", entry.target.id)
+            setActiveSection(entry.target.id);
+          }
+        });
+        }, {
+        threshold: 1,
+      });
+
+      sectionElements.forEach((section) => {
+        if(section) observer.observe(section);
+      });
+
+      return () => {
+        sectionElements.forEach((section) => {
+        if (section) observer.unobserve(section);
+        setActiveSection('experience');
+      });
+      };
+
+    }, [])
+
+    console.log("active section: ", activeSection)
+
+    return (
     <>
-    <div className="absolute -top-150 inset-0 grayscale w-full z-[-1] flex justify-center animate-scalein">
+    <div className="absolute md:-top-150 -top-120 inset-0 grayscale w-full z-[-1] flex justify-center animate-scalein">
       <img className="grayscale
       mask-[radial-gradient(circle_at_center,transparent_0%,black_10%,transparent_100%)]
       [-webkit-mask-image:radial-gradient(circle_at_center,transparent_0%,black_50%,transparent_70%)]
       mask-cover
-      mask-no-repeat opacity-20 w-400 h-400" srcSet="https://framerusercontent.com/images/lyeMp4g3kXbh4joTBITbB07M5o.jpg?width=2000&height=2000&scale-down-to=512 512w, https://  framerusercontent.com/images/lyeMp4g3kXbh4joTBITbB07M5o.jpg?width=2000&height=2000&scale-down-to=1024 1024w, https://framerusercontent.com/images/lyeMp4g3kXbh4joTBITbB07M5o.jpg?width=2000&height=2000 2000w" decoding="auto" width="2000" height="2000" src="https://framerusercontent.com/images/lyeMp4g3kXbh4joTBITbB07M5o.jpg?width=1000&height=1000" alt="" />
+      mask-no-repeat opacity-20 md:w-400 md:h-400 w-300 h-300 object-cover" srcSet="https://framerusercontent.com/images/lyeMp4g3kXbh4joTBITbB07M5o.jpg?width=2000&height=2000&scale-down-to=512 512w, https://  framerusercontent.com/images/lyeMp4g3kXbh4joTBITbB07M5o.jpg?width=2000&height=2000&scale-down-to=1024 1024w, https://framerusercontent.com/images/lyeMp4g3kXbh4joTBITbB07M5o.jpg?width=2000&height=2000 2000w" decoding="auto" width="2000" height="2000" src="https://framerusercontent.com/images/lyeMp4g3kXbh4joTBITbB07M5o.jpg?width=1000&height=1000" alt="" />
     </div>
     
       <div className="absolute top-0 bottom-0 z-[-2] min-h-screen w-full bg-gray-50 dark:bg-black
       bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(217,216,255,0.5),rgba(255,255,255,0.9))]
       dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(255,255,255,0.3),rgba(255,255,255,0))]"></div>
-      <h1 className="font-base-neue text-5xl pl-96 py-3">PORTFOLIO</h1>
-      <nav className="flex fixed top-0 z-10 px-96 py-3 w-full justify-center">
-        <div className="h-10 flex items-center gap-10 font-gabarito bg-nav-bg py-3 px-8 rounded-full border border-zinc-700/50 text-sm self-center backdrop-blur-3xl">
-          <a href="" className="text-white">Experiencia</a>
-          <a href="" className="text-zinc-400">Proyectos</a>
-          <a href="" className="text-zinc-400">Sobre mi</a>
-          <a href="" className="text-zinc-400">Contacto</a>
-        </div>
-      </nav>
-      <div className="px-4 min-h-screen overflow-auto flex flex-col py-24 relative ">
+      
+      <div className="font-base-neue py-3 mx-auto md:mt-32 mt-20 md:text-9xl text-8xl relative flex justify-center items-center">
+        <h1 >PORTFOLIO</h1>
+        <span className="bg-primary w-56 h-56 rounded-full -top-10 blur-2xl -z-1 absolute"></span>
+      </div>
+
+      <header className="fixed top-0 z-10 flex items-center justify-center w-full mx-auto mt-2">
+        <nav className="flex px-3 text-sm font-medium rounded-full text-gray-600 dark:text-gray-200 justify-center items-center">
+          <div className="h-10 flex items-center gap-10 font-gabarito bg-nav-bg py-3 px-8 rounded-full border border-zinc-700/50 md:text-sm self-center backdrop-blur-3xl text-xs">
+            {
+              SECTIONS.map((section, index) => (
+                <a style={{
+                  color: activeSection === section.id && 'white'
+                }} href={section.href} aria-label={section.name} key={index} className="text-zinc-400 hover:text-white">{section.name}</a>
+              ))
+            }
+          </div>
+        </nav>
+      </header>
+
+      <div className="px-4 min-h-screen overflow-hidden flex flex-col relative">
+
         <section aria-description="welcome" className="py-10 md:py-36 scroll-m-20 w-full mx-auto lg:max-w-4xl md:max-w-2xl">
           <div className="max-w-xl">
             <div className="mb-4">
@@ -33,35 +100,40 @@ function App() {
             <p className="text-xl mt-6">Tengo +3 años de experiencia desarrollando sistemas integrales, me preocupo por crear <strong>sistemas web de calidad</strong> y garantizar al usuario una <strong>experiencia unica</strong>.</p>
           </div>
         </section>
-        <div className="mt-2">
-          <section className="section undefined scroll-m-20 w-full mx-auto container lg:max-w-4xl md:max-w-2xl max-h-100 h-44">
+
+        <div className="mt-15">
+
+          <section id="experience" aria-description="experience" data-section="experience" className="section undefined scroll-m-20 w-full mx-auto container lg:max-w-4xl md:max-w-2xl min-h-44 ">
             <div className="flex gap-3 items-center">
               <BriefcaseBusiness size={30}/>
               <p className="font-gabarito text-3xl">Experiencia</p>
             </div>
             <div className="w-full h-full mt-5">
               <ol className="relative w-full h-full">
+
                 <li className="h-full w-full font-gabarito">
-                  <div className="grid grid-cols-5 grid-rows-1 before:content-[''] before:absolute before:w-0.5 before:h-full before:bg-zinc-500 before:top-0 before:bottom-0 before:left-0 h-full relative px-10 gap-10">
-                    <div className="col-span-2 h-full w-full">
+                  <div className="grid md:grid-cols-5 md:gap-10 md:space-x-4] grid-rows-1 before:content-[''] before:absolute before:w-0.5 before:h-full before:bg-zinc-500 before:top-0 before:bottom-0 before:left-0 h-full relative px-10 gap-10">
+                    <div className="md:col-span-2 h-full w-full">
                       <span className="text-white/70">2023-2026</span>
                       <span className="text-white -left-2 -top-2 absolute rounded-full text-5xl w-1 h-1">•</span>
                       <h1 className="text-2xl font-bold">Programador FullStack</h1>
                       <h3 className="font-semibold">Grupo Yuhmak</h3>
                     </div>
-                    <div className="col-span-3 h-full w-full text-lg pb-10">Responsable de la plataforma, componentes y utilidades para la creación y desarrollo de aplicaciones web. Mejora de un 30% en la entrega de software. Implantación de medidas de integración continua y despliegue con A/B testing en más de 15 equipos. </div>
+                    <div className="md:col-span-3 h-full w-full text-lg pb-10">Responsable de la plataforma, componentes y utilidades para la creación y desarrollo de aplicaciones web. Mejora de un 30% en la entrega de software. Implantación de medidas de integración continua y despliegue con A/B testing en más de 15 equipos. </div>
                   </div>
                 </li>
+                
                 
               </ol>
             </div>
           </section>
-          <section className="section undefined scroll-m-20 w-full mx-auto container lg:max-w-4xl md:max-w-2xl mt-48">
+          <section id="proyects" aria-description="proyects" data-section="proyects"  className="section undefined scroll-m-20 w-full mx-auto container lg:max-w-4xl md:max-w-2xl mt-32">
             <div className="flex gap-3 items-center">
               <Code size={30}/>
               <p className="font-gabarito text-3xl">Proyectos</p>
             </div>
-            <article className="grid grid-cols-2 gap-10 font-gabarito mt-5">
+
+            <article className="grid md:grid-cols-2 sm:grid-cols-1 gap-10 font-gabarito mt-5">
               <div className="w-full rounded-2xl p-1 border border-zinc-700/50">
                 <img className="rounded-xl bg-cover content-stretch w-full h-full object-cover" src="857_1x_shots_so.png" alt="" />
               </div>
@@ -69,7 +141,7 @@ function App() {
                 <h1 className="text-3xl font-bold">QRegister - User register shifts with geolocation.</h1>
                 <span className="flex items-center gap-2"><MonitorSmartphone size={16} /> Mobile and Desktop</span>
                 <p>Es una aplicacion web desarrollada en React y Node.js que permite registrar turnos de usuarios con geolocalización. Reduciendo el gasto en hardware y mejorando la eficiencia del proceso de registro.</p>
-                  <ol className="flex gap-1">
+                  <ol className="flex gap-1 flex-wrap">
                     <li>
                       <span className="flex gap-1 text-[#61DAFB] text-sm bg-[#61DAFB]/20 rounded-full px-3 py-1">
                         <img className="w-4" src="React.svg" alt="React Logo" />
@@ -100,18 +172,19 @@ function App() {
                 </footer>
               </div>
             </article>
+
           </section>
-          <section className="section undefined scroll-m-20 w-full mx-auto container lg:max-w-4xl md:max-w-2xl mt-30">
+          <section id="aboutme" aria-description="aboutme" data-section="aboutme" className="section undefined scroll-m-20 w-full mx-auto container lg:max-w-4xl md:max-w-2xl mt-32">
             <div className="flex gap-3 items-center">
               <UserRoundSearch size={30}/>
               <p className="font-gabarito text-3xl">Sobre mi</p>
             </div>
-            <article className="flex">
+            <article className="flex flex-col-reverse mt-10 justify-center items-center md:flex-row gap-5">
               <div className="max-w-xl font-gabarito">
                 <p className="mt-5">Soy un desarrollador web apasionado por crear soluciones digitales innovadoras. Mi enfoque se centra en el desarrollo de aplicaciones web modernas, utilizando tecnologías como React, Node.js y Tailwind CSS. Mi objetivo es entregar productos de alta calidad que ofrezcan una experiencia única al usuario.</p>
                 <p className="mt-5">Soy un desarrollador web apasionado por crear soluciones digitales innovadoras. Mi enfoque se centra en el desarrollo de aplicaciones web modernas, utilizando tecnologías como React, Node.js y Tailwind CSS. Mi objetivo es entregar productos de alta calidad que ofrezcan una experiencia única al usuario.</p>
               </div>
-              <div className="p-1 rounded-2xl border border-zinc-700/50 ml-auto rotate-3">
+              <div className="p-1 rounded-2xl border border-zinc-700 w-64 rotate-3">
                 <img className="h-64 rounded-xl" src="profilePicture.JPG" alt="" />
               </div>
             </article>

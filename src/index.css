@@ -1,11 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Reddit+Sans:ital,wght@0,200..900;1,200..900&display=swap');
 @import "tailwindcss";
 
+html{
+  scroll-behavior: smooth;
+}
+
 html, body{
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  overscroll-behavior: none;
   line-height: inherit;
 }
 
@@ -29,6 +32,12 @@ html, body{
   --color-nav-bg: #212121;
 
   --animate-scalein: scaleIn 3s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{
+    scroll-behavior: auto;
+  }
 }
 
 
