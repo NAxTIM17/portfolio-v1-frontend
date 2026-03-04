@@ -1,29 +1,104 @@
-import { BriefcaseBusiness, Code, UserRoundSearch, ExternalLink, MonitorSmartphone } from "lucide-react"
+import { BriefcaseBusiness, Code, UserRoundSearch, ExternalLink, MonitorSmartphone, Linkedin, Mail } from "lucide-react"
 import { useEffect, useState } from "react"
 
+const SECTIONS = [
+  {
+    href : "/#experience",
+    name : "Experiencia",
+    id : "experience"
+  },
+  {
+    href : "/#proyects",
+    name : "Proyectos",
+    id : "proyects"
+  },
+  {
+    href : "/#aboutme",
+    name : "Sobre mi",
+    id : "aboutme"
+  },
+  {
+    href : "",
+    name : "Contacto",
+    id : "contact"
+  }
+];
+
+const STACK = [
+  {
+    tech: "React",
+    img: "React.svg",
+    color: "#61DAFB"
+  },
+  {
+    tech: "Node.js",
+    img: "Node.js.svg",
+    color: "#66A52A"
+  },
+  {
+    tech: "Tailwind CSS",
+    img: "Tailwind CSS.svg",
+    color: "#38BDF8"
+  },
+  {
+    tech: "MySQL",
+    img: "MySQL.svg",
+    color: "#00618A"
+  },
+  {
+    tech: "MongoDB",
+    img: "MongoDB.svg",
+    color: "#45A538"
+  },
+  {
+    tech: "Git",
+    img: "Git.svg",
+    color: "#F34F29"
+  },
+  {
+    tech: "Figma",
+    img: "Figma.svg",
+    color: "#F24E1E"
+  },
+  {
+    tech: "Css",
+    img: "CSS3.svg",
+    color: "#33A9DC"
+  },
+  {
+    tech: "Html",
+    img: "HTML5.svg",
+    color: "#F16529"
+  },
+  {
+    tech: "Javascript",
+    img: "JavaScript.svg",
+    color: "#F0DB4F"
+  },
+  {
+    tech: "Kotlin",
+    img: "Kotlin.svg",
+    color: "#C711E1"
+  },
+  {
+    tech: "Php",
+    img: "PHP.svg",
+    color: "#777BB3"
+  },
+  {
+    tech: "Docker",
+    img: "Docker.svg",
+    color: "#019BC6"
+  },
+  {
+    tech: "Blender",
+    img : "Blender.svg",
+    color: "#E87500"
+  }
+
+]
+
 function App() {
-  const SECTIONS = [
-    {
-      href : "/#experience",
-      name : "Experiencia",
-      id : "experience"
-    },
-    {
-      href : "/#proyects",
-      name : "Proyectos",
-      id : "proyects"
-    },
-    {
-      href : "/#aboutme",
-      name : "Sobre mi",
-      id : "aboutme"
-    },
-    {
-      href : "",
-      name : "Contacto",
-      id : "contact"
-    }
-  ]
 
     const [activeSection, setActiveSection] = useState('experience');
 
@@ -95,10 +170,38 @@ function App() {
           <div className="max-w-xl">
             <div className="mb-4">
               <span className="px-3 py-1 rounded-full text-xs font-gabarito border border-green-400 text-white mb-2">Open to work</span>
-              <h1 className="font-gabarito text-5xl font-extrabold tracking-tight mt-5">Hola, soy Nacho <strong className="ml-5 text-3xl">🇦🇷</strong></h1>
+              <div className="font-gabarito flex gap-5 mt-10">
+                <h1 className="font-gabarito text-5xl font-extrabold tracking-tight">Hola, soy Nacho</h1>
+                <div className="flex gap-2 mt-3">
+                  <button className="flex gap-1 px-3 py-1 border border-zinc-700 rounded-3xl items-center bg-black text-sm h-8">
+                    <Linkedin size={15}/>
+                    LinkedIn
+                  </button>
+                  <button className="flex gap-1 px-3 py-1 border border-zinc-700 rounded-3xl items-center bg-black text-sm h-8">
+                    <Mail size={15}/>
+                    Let's work
+                  </button>
+                </div>
+              </div>
             </div>
             <p className="text-xl mt-6">Tengo +3 años de experiencia desarrollando sistemas integrales, me preocupo por crear <strong>sistemas web de calidad</strong> y garantizar al usuario una <strong>experiencia unica</strong>.</p>
           </div>
+
+            <ol className="flex gap-2 flex-wrap mt-10 font-gabarito">
+              {
+                STACK.map((tech, index) => (
+                    <li key={index} className="flex">
+                      <span style={{
+                        color: tech.color,
+                        "--brand-color" : tech.color
+                      }} className={`flex gap-1 text-sm bg-(--brand-color)/20 backdrop-blur-[2px] rounded-full px-3 py-1 border border-(--brand-color)/10`}>
+                        <img className="w-4" src={tech.img} alt={tech.tech} />
+                        {tech.tech}
+                      </span>
+                    </li>
+                ))
+              }
+            </ol>
         </section>
 
         <div className="mt-15">
@@ -130,7 +233,7 @@ function App() {
           <section id="proyects" aria-description="proyects" data-section="proyects"  className="section undefined scroll-m-20 w-full mx-auto container lg:max-w-4xl md:max-w-2xl mt-32">
             <div className="flex gap-3 items-center">
               <Code size={30}/>
-              <p className="font-gabarito text-3xl">Proyectos</p>
+              <p className="font-gabarito text-3xl">Proyectos & Trabajos</p>
             </div>
 
             <article className="grid md:grid-cols-2 sm:grid-cols-1 gap-10 font-gabarito mt-5">
